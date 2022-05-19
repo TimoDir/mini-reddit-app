@@ -1,3 +1,19 @@
+# Mini-Reddit-APP
+
+It's a project who create a minimaliste APP displaying some popular and quite recente post of the platform Reddit. We will be abel:
+ - Displaying post depending of the Subreddit tag.
+ - See comments. 
+ - Push arrow up or down.
+ - Have a dark mode.
+
+ For this project I will use React for the logic and ChakraUI for the styling of the app.
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
