@@ -1,10 +1,12 @@
-import React from 'react';
-import { screen } from '@testing-library/react';
-import { render } from './test-utils';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn chakra/i);
-  expect(linkElement).toBeInTheDocument();
+// Test the Component APP
+
+describe('App', () =>{
+  test('renders App', () => {
+    render(<App />);
+    const linkElement = screen.getByText(/Reddit/);
+    expect(linkElement).toBeInTheDocument();
+  });
 });

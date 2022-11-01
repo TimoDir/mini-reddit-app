@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 25px;
+  color: blue;
+  pointer-events: none;
+}
+
+
+.App-header {
+  background-color: white;
+  min-height: 40px;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content:space-between ;
+  color: black;
+  padding: 0px;
+  
+  box-shadow: 0px 10px 10px rgba(204, 204, 204, 0.781);
+}
+
+.App-compartiment{
+  width: 250px;
+}
+
+.App-header h3{
+  font-size: 30px;
+}
+
+.App-header svg{
+  height: 10px;
+}
+
+.App-header h3 svg{
+  height: 25px;
+}
+
+.App-header h3 svg, .App-header span{
+  color: rgb(21, 21, 221);
+}
+
+
+.App-link {
+  color: #61dafb;
+}
