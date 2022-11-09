@@ -46,3 +46,11 @@
 .App-link {
   color: #61dafb;
 }
+
+.Article {
+  width: 75%;
+  margin: 2.5%;
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+}
