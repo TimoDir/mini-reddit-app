@@ -1,9 +1,10 @@
 import * as React from 'react';
 import './App.css';
-import { redditLogo, searchIcon, arrowUpIcon, arrowDownIcon, commentIcon, commentOpenIcon} from './ressources/icons/svgIcon';
+import { redditLogo, searchIcon, arrowUpIcon, arrowDownIcon, commentIcon, commentOpenIcon, urlToRedditArticle} from './ressources/icons/svgIcon';
 
 const initialPostState = [
   {title:"Beluga",
+  redditPlace:"Cat",
   author:"SuperBeluga",
   date:"07/11/2022",
   URLimage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbla7jeZvXe52oVMRY4ecyTFrxFYeYUonFs9kfSd0PznOP_S4sHSNLNDXYbYSiT8YCZlM&usqp=CAU",
@@ -28,10 +29,11 @@ const initialPostState = [
   ],
 },
 {title:"Martoni",
+  redditPlace:"Movie",
   author:"SuperMartoni",
   date:"07/11/2022",
   URLimage:"https://pbs.twimg.com/media/CUM1wfaWEAAw3gt?format=png&name=4096x4096",
-  likeCount: 5799990000000,
+  likeCount: 570099900,
   comment:[
     {author:"antiBeluga",
     date:"07/11/2022",
@@ -63,32 +65,28 @@ const SearchForm = () =>{
   );
 };
 
-const CommentSection = ({article}) =>{
+const CommentSection = ({article, numberFormat}) =>{
   const [display, setDisplay] = React.useState(false);
   
   const changeDisplayMod = () =>{
-    if(display){
-      setDisplay(false);
-    } else setDisplay(true);
+    display ? setDisplay(false) : setDisplay(true);
   }
-
-  const commentButton = () =>{
-    if(display){
-      return <button onClick={changeDisplayMod}>{commentOpenIcon}</button>;
-    } else return <button onClick={changeDisplayMod}>{commentIcon}</button>;
-  };
 
   return(
     <>
-    {commentButton()}
+    <div className='btn-groupe'>
+      <button onClick={changeDisplayMod}>{display ? commentOpenIcon : commentIcon} {numberFormat(article.comment.length)} comments</button>
+      <button>{urlToRedditArticle} link to the article</button>
+    </div>
+    <br/>
     {display &&
     article.comment.map((comment) =>{
       return(
-        <>
+        <div>
           <p>Author: <span className='SubArticleAuthor'>{comment.author}</span></p>
           <p>{comment.contents}</p>
           <p>Date: {comment.date}</p>
-        </>
+        </div>
       );
     })
     }
@@ -130,23 +128,26 @@ const Post = ({post}) =>{
     }else return number;
   };
 
+  const timePosted = (value) =>{
+
+  }
+
   return(
     <>
       {post.map((article) =>{
         return (
           <article className='Article'>
             <div className='ArticleLikes'>
-              {arrowUpIcon}
+              <div className='Arrow ArrowUp'>{arrowUpIcon}</div>
               <h4>{likeFormat(article.likeCount)}</h4>
-              {arrowDownIcon}
+              <div className='Arrow ArrowDown'>{arrowDownIcon}</div>
             </div>
-            <div>
+            <div className='SubArticle'>
+              <p>r/{article.redditPlace} posted by <span className='SubArticleAuthor'>u/{article.author}</span> date: {article.date}</p>
               <h1>{article.title}</h1>
               <img src={article.URLimage} alt={article.title} />
-              <div className='SubArticle'>
-                <p>Author: <span className='SubArticleAuthor'>{article.author}</span></p>
-                <p>Date: {article.date}</p>
-                <CommentSection  article={article} />   
+              <div>
+                <CommentSection  article={article} numberFormat={likeFormat}/>   
               </div>
             </div>
           </article>

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #dae0e6;
 }
 
 .App-logo {
@@ -18,8 +19,9 @@
   justify-content:space-between ;
   color: black;
   padding: 0px;
+  margin: 0px 0px 50px 0px;
   
-  box-shadow: 0px 10px 10px rgba(204, 204, 204, 0.781);
+  /*box-shadow: 0px 10px 10px rgba(204, 204, 204, 0.781); */
 }
 
 .App-compartiment{
@@ -47,10 +49,48 @@
   color: #61dafb;
 }
 
+
 .Article {
+  background-color: white;
   width: 75%;
-  margin: 2.5%;
-  padding: 2px;
+  margin: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
+}
+
+.ArticleLikes {
+  width: 5%;
+  margin: 10px;
+}
+
+.SubArticle{
+  width: 80%;
+}
+
+.btn-groupe button{
+  display: inline-block;
+  float: left;
+  margin: 5px;
+  font-size: 15px;
+  text-align: center;
+  border: none;
+  color: rgb(109, 109, 109);
+  background-color: white;
+  cursor: pointer;
+}
+
+.btn-groupe button:hover {
+  background-color: rgb(184, 184, 184);
+}
+
+.SubArticle svg{
+  color: rgb(109, 109, 109);
+  height: 17px;
+  width: 17px;
+}
+
+.SubArticle img{
+  width:fit-content;
+  max-width: 100%;
 }
