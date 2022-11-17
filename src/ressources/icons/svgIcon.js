@@ -19,14 +19,14 @@ export const searchIcon = (
 export const arrowUpIcon = (
 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" class="ionicon" viewBox="0 0 512 512">
     <title>Chevron Up</title>
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 328l144-144 144 144"/>
+    <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="48" d="M112 328l144-144 144 144"/>
     </svg>
 );
 
 export const arrowDownIcon = (
 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" class="ionicon" viewBox="0 0 512 512">
     <title>Chevron Down</title>
-    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 184l144 144 144-144"/>
+    <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="48" d="M112 184l144 144 144-144"/>
     </svg>
 );
 

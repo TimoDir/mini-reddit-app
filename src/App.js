@@ -10,21 +10,25 @@ const initialPostState = [
   URLimage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbla7jeZvXe52oVMRY4ecyTFrxFYeYUonFs9kfSd0PznOP_S4sHSNLNDXYbYSiT8YCZlM&usqp=CAU",
   likeCount: 120077,
   comment:[
-    {author:"antiBeluga",
+    {author:"ScubaCycle",
     date:"07/11/2022",
     contents:"I like it",
+    likeCount: 3500,
     },
     {author:"Martoni",
     date:"07/11/2022",
     contents:"I dont like it",
+    likeCount: 25,
     },
     {author:"antiBeluga",
     date:"07/11/2022",
     contents:"You bluff @Martoni!",
+    likeCount: 789,
     },
     {author:"Martoni",
     date:"07/11/2022",
     contents:"lol",
+    likeCount: 655,
     },
   ],
 },
@@ -38,29 +42,37 @@ const initialPostState = [
     {author:"antiBeluga",
     date:"07/11/2022",
     contents:"I like it",
+    likeCount: 100,
     },
     {author:"Martoni",
     date:"07/11/2022",
     contents:"It's not me :p",
+    likeCount: 23,
     },
     {author:"antiBeluga",
     date:"07/11/2022",
     contents:"You bluff @Martoni!",
+    likeCount: 65,
     },
     {author:"Martoni",
     date:"07/11/2022",
     contents:"lol",
+    likeCount: 10,
     },
   ],
 },
 ]
 
 
-const SearchForm = () =>{
+const SearchForm = ({searchTerm, setSearchTerm}) =>{
+  const changeTerm = (e) =>{
+    setSearchTerm(e.target.value);
+    console.log(searchTerm)
+  };
+
   return(
-    <form>
-      <input type="search" placeholder="search inside reddit" />
-      <button type='submit'>{searchIcon}</button>
+    <form className='SearchBar'>
+      <input type="search" placeholder="Search Reddit" onSubmit={changeTerm} />
     </form>
   );
 };
@@ -79,13 +91,23 @@ const CommentSection = ({article, numberFormat}) =>{
       <button>{urlToRedditArticle} link to the article</button>
     </div>
     <br/>
-    {display &&
+    {display && // It will probably become a recursive component
     article.comment.map((comment) =>{
       return(
-        <div>
-          <p>Author: <span className='SubArticleAuthor'>{comment.author}</span></p>
-          <p>{comment.contents}</p>
-          <p>Date: {comment.date}</p>
+        <div className='Comment'>
+          <p className='ArticleInfo'>
+            <a href={`https://www.reddit.com/user/${comment.author}/`} target="_blank" rel="noreferrer">{comment.author}</a> - 
+              Date: {comment.date}
+          </p>
+          <div className='Comment'>
+            <p>{comment.contents}</p>
+            <div className='btn-groupe'>
+              <button>{arrowUpIcon}</button>
+              {numberFormat(comment.likeCount)}
+              <button>{arrowDownIcon}</button>
+              <button>{commentIcon} 0 answers</button>
+            </div>
+          </div>
         </div>
       );
     })
@@ -143,7 +165,10 @@ const Post = ({post}) =>{
               <div className='Arrow ArrowDown'>{arrowDownIcon}</div>
             </div>
             <div className='SubArticle'>
-              <p>r/{article.redditPlace} posted by <span className='SubArticleAuthor'>u/{article.author}</span> date: {article.date}</p>
+              <p className='ArticleInfo'>
+                <a href={`https://www.reddit.com/r/${article.redditPlace}/`} target="_blank" rel="noreferrer">r/{article.redditPlace}</a> - 
+                posted by <span className='ArticleAuthor' ><a href={`https://www.reddit.com/user/${article.author}/`} target="_blank" rel="noreferrer">u/{article.author}</a></span> -  
+                date: {article.date}</p>
               <h1>{article.title}</h1>
               <img src={article.URLimage} alt={article.title} />
               <div>
@@ -173,13 +198,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className='App-compartiment'><h3>{redditLogo}Mini<span>Reddit</span></h3></div>
-        <div className='App-compartiment'><SearchForm  /></div>
+        <div className='App-compartiment'><SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} /></div>
         <div className='App-compartiment'></div>
       </header>
       <div className="Body">
         <Post post={post} />
         <FavCategorie />
       </div>
+      <footer className='Footer'>
+      </footer>
     </div>
   );
 }
