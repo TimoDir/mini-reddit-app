@@ -137,7 +137,7 @@
   width: 17px;
 }
 
-.SubArticle img{
+.SubArticle img, .SubArticle video{
   width:fit-content;
   max-width: 100%;
 }
