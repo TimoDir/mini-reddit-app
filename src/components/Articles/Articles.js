@@ -5,16 +5,17 @@ import { CommentSection } from "./CommentSection/ComentSection";
 export const Articles = ({articles}) =>{
 
   const formatingTimePost = (created) =>{
+    // the date of creation of the post is in epoch-second format so we take the one of today and soustrac from the one of the post
     const scdOfToday =new Date().getTime()/(1000);
     const timeSincePost = Math.round(scdOfToday - created);
-
+    // using the documentation of the epoch format to define these number
     const minute = 60;
     const hour = minute*60;
     const day = hour*24;
     const week = day*7;
     const month = day*30.44;
     const year = day*365.24;
-
+    // the logic render the time since post
     if(timeSincePost<minute){
         return (timeSincePost <=1) ? `${timeSincePost} second` : `${timeSincePost} seconds`;
     } else if(timeSincePost < hour){
@@ -39,6 +40,7 @@ export const Articles = ({articles}) =>{
 };
 
   const foramtingLink = link =>{
+    // Removing the begining to take the name of the website first and keeping the second element
     const websiteNameShorten = link.replace('https://','').replace('www.','').split('/').splice(0,2).join('/')+'...'
     return websiteNameShorten;
   };
