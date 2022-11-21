@@ -109,13 +109,19 @@ function App() {
 
   React.useEffect(()=>{
     handelFetchArticle();
-  }, [handelFetchArticle])
+  }, [handelFetchArticle]);
+
+  const handleSearch = (event) =>{
+    setSearchTerm('r/'+event.target.value+'.json');
+    console.log(searchTerm)
+    event.preventDefault();
+  }
   
   return (
     <div className="App">
       <header className="App-header">
         <div className='App-compartiment'><h3>{redditLogo}Mini<span>Reddit</span></h3></div>
-        <div className='App-compartiment'><SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} /></div>
+        <div className='App-compartiment'><SearchForm searchTerm={searchTerm} handleSearch={handleSearch} /></div>
         <div className='App-compartiment'></div>
       </header>
       <div className="Body">

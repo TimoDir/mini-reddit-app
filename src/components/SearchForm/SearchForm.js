@@ -1,12 +1,8 @@
-export const SearchForm = ({searchTerm, setSearchTerm}) =>{
-  const changeTerm = (e) =>{
-    setSearchTerm(e.target.value);
-    console.log(searchTerm)
-  };
+export const SearchForm = ({searchTerm, handleSearch}) =>{
 
   return(
     <form className='SearchBar'>
-      <input type="search" placeholder="Search Reddit" onSubmit={changeTerm} />
+      <input type="search" placeholder="Search Reddit" onChange={handleSearch} />
     </form>
   );
 };

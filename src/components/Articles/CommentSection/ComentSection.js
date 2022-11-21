@@ -8,7 +8,6 @@ export const CommentSection = ({article, numberFormat}) =>{
       display ? setDisplay(false) : setDisplay(true);
     }
 
-    console.log(article)
     return(
       <>
       <div className='btn-groupe'>
