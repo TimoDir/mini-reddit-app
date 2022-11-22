@@ -90,7 +90,8 @@ function App() {
     articlesReducer,
     {data:[], isLoading:false, isError:false }
   );
-  const [searchTerm, setSearchTerm] = React.useState('top.json?t=day');
+  const [searchTerm, setSearchTerm] = React.useState('top.json?t=day?raw_json=1');
+  //const [url, setUrl] = React.useState(`https://www.reddit.com/${searchTerm}`)
 
   const handelFetchArticle = React.useCallback(async()=>{
     dispatchArticles({type:'LoadingArticles'});
@@ -112,10 +113,9 @@ function App() {
   }, [handelFetchArticle]);
 
   const handleSearch = (event) =>{
-    setSearchTerm('r/'+event.target.value+'.json');
-    console.log(searchTerm)
+    setSearchTerm('r/'+event.target.value+'.json?raw_json=1');
     event.preventDefault();
-  }
+  };
   
   return (
     <div className="App">

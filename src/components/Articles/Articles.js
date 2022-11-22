@@ -1,5 +1,5 @@
-import { arrowUpIcon, arrowDownIcon } from "../../ressources/icons/svgIcon";
-import { CommentSection } from "./CommentSection/ComentSection";
+import { arrowUpIcon, arrowDownIcon, commentIcon } from "../../ressources/icons/svgIcon";
+import axios from "axios";
 
 
 export const Articles = ({articles}) =>{
@@ -46,7 +46,7 @@ export const Articles = ({articles}) =>{
   };
 
     //Function who will format the number like 10.0K for 10 000 like and ect 
-  const likeFormat = (value) =>{
+  const numberFormat = (value) =>{
     const number = value.toString();
   
     if(number.length > 3){
@@ -72,14 +72,20 @@ export const Articles = ({articles}) =>{
       }else return number;
     };
 
+    const stringToJSX = (string) =>{
+      return <div className="SelfText" dangerouslySetInnerHTML={{__html:string}} ></div>
+    }
+
     return(
       <>
         {articles.map((article) =>{
+          /*const subredditInfo = await axios(`https://www.reddit.com/${article.data.subreddit_name_prefixed}/about.json`);
+          const subredditIcons = subredditInfo.data.community_icon ;*/
           return (
             <article key={article.data.id} className='Article'>
               <div className='ArticleLikes'>
                 <div className='Arrow ArrowUp'>{arrowUpIcon}</div>
-                <h4>{likeFormat(article.data.ups)}</h4>
+                <h4>{numberFormat(article.data.ups)}</h4>
                 <div className='Arrow ArrowDown'>{arrowDownIcon}</div>
               </div>
               <div className='SubArticle'>
@@ -88,24 +94,26 @@ export const Articles = ({articles}) =>{
                   posted by <span className='ArticleAuthor' ><a href={`https://www.reddit.com/user/${article.data.author}/`} target="_blank" rel="noreferrer">u/{article.data.author}</a></span> -  
                   <span title={`${new Date(article.data.created*1000)}`} > {formatingTimePost(article.data.created)} ago.</span></p>
                 <h1>{article.data.title}</h1>
-                {(article.data.post_hint === "hosted:video") ? 
+                {
+                (article.data.post_hint === "hosted:video") ? 
                 <video controls>
                   <source src={article.data.media.reddit_video.fallback_url} type="video/mp4"/>
                 </video> :
                 (article.data.post_hint === "image") ? 
                 <img src={article.data.url} alt={article.data.title} /> : 
-                (article.data.post_hint === "link" || article.data.post_hint === undefined) ? 
+                (article.data.post_hint === "link" || article.data.selftext_html === null) ? 
                 <div>
                   <a href={article.data.url} target="_blank" rel="noreferrer">
                     {foramtingLink(article.data.url)}
                   </a>
                 </div>
-                 : console.log('no hint')
+                 : (article.data.selftext_html !== null) ? 
+                 stringToJSX(article.data.selftext_html) :console.log('no hint')
                 
                 }
                 
-                <div>
-                  <CommentSection  article={article.data} numberFormat={likeFormat}/>  
+                <div className='btn-groupe'>
+                  <button><a href={`https://www.reddit.com${article.data.permalink}`} target="_blank" rel="noreferrer">{commentIcon} {numberFormat(article.data.num_comments)} comments</a></button>
                 </div>
               </div>
             </article>

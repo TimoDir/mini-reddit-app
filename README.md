@@ -1,18 +1,19 @@
 # Mini-Reddit-APP
 
 It's a project who create a minimaliste APP displaying some popular and quite recente post of the platform Reddit. We will be abel:
- - Displaying post depending of the Subreddit tag.
- - See comments. 
- - Push arrow up or down.
- - Have a dark mode.
+
+- Displaying post depending of the Subreddit tag.
+- Add button to see the top of the day or subreddit or the Hot topic of the day or subreddit.
+- Push arrow up or down.
+- Have a dark mode.
 
  For this project I will use React for the logic and ChakraUI for the styling of the app.
 
+## Probleme and solution
 
+### selftext_HTML probleme
 
-
-
-
+I add a probleme while to put the content of article I had to take the selftext_html who was not encoded. I found a solution to add *raw_json=1* at the end of the url querry. From that I got a string with component inside it I wanted to convert the string into jsx element. For that I create a function who created a div element inside witch I used *dangerouslySetInnerHTML={{__html:stringWithJSXelementInside}}* 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
