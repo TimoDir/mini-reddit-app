@@ -1,12 +1,12 @@
-export const articlesReducer = (state, action) =>{
+export const urlSubIconReducer = (state, action) =>{
     switch(action.type){
-    case 'LoadingArticles':
+    case 'LoadingIcon':
         return{
             ...state,
             isLoading: true,
             isError: false,
         };
-    case 'GetArticles':
+    case 'GetIcon':
         return{
             ...state,
             isLoading: false,
@@ -21,6 +21,4 @@ export const articlesReducer = (state, action) =>{
         };
     default: throw new Error();
     };
-};
-
-export const baseURL = 'https://www.reddit.com';
+} 

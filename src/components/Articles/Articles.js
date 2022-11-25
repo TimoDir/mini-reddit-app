@@ -1,5 +1,4 @@
-import { arrowUpIcon, arrowDownIcon, commentIcon } from "../../ressources/icons/svgIcon";
-import axios from "axios";
+import {Article} from "./Article/Article"
 
 
 export const Articles = ({articles}) =>{
@@ -41,7 +40,7 @@ export const Articles = ({articles}) =>{
 
   const foramtingLink = link =>{
     // Removing the begining to take the name of the website first and keeping the second element
-    const websiteNameShorten = link.replace('https://','').replace('www.','').split('/').splice(0,2).join('/')+'...'
+    const websiteNameShorten = link.replace('https://','').replace('www.','').split('/').splice(0,2).join('/').split('?')[0]+'...'
     return websiteNameShorten;
   };
 
@@ -78,47 +77,14 @@ export const Articles = ({articles}) =>{
 
     return(
       <>
-        {articles.map((article) =>{
-          /*const subredditInfo = await axios(`https://www.reddit.com/${article.data.subreddit_name_prefixed}/about.json`);
-          const subredditIcons = subredditInfo.data.community_icon ;*/
-          return (
-            <article key={article.data.id} className='Article'>
-              <div className='ArticleLikes'>
-                <div className='Arrow ArrowUp'>{arrowUpIcon}</div>
-                <h4>{numberFormat(article.data.ups)}</h4>
-                <div className='Arrow ArrowDown'>{arrowDownIcon}</div>
-              </div>
-              <div className='SubArticle'>
-                <p className='ArticleInfo'>
-                  <a href={`https://www.reddit.com/r/${article.data.subreddit}/`} target="_blank" rel="noreferrer">r/{article.data.subreddit}</a> - 
-                  posted by <span className='ArticleAuthor' ><a href={`https://www.reddit.com/user/${article.data.author}/`} target="_blank" rel="noreferrer">u/{article.data.author}</a></span> -  
-                  <span title={`${new Date(article.data.created*1000)}`} > {formatingTimePost(article.data.created)} ago.</span></p>
-                <h1>{article.data.title}</h1>
-                {
-                (article.data.post_hint === "hosted:video") ? 
-                <video controls>
-                  <source src={article.data.media.reddit_video.fallback_url} type="video/mp4"/>
-                </video> :
-                (article.data.post_hint === "image") ? 
-                <img src={article.data.url} alt={article.data.title} /> : 
-                (article.data.post_hint === "link" || article.data.selftext_html === null) ? 
-                <div>
-                  <a href={article.data.url} target="_blank" rel="noreferrer">
-                    {foramtingLink(article.data.url)}
-                  </a>
-                </div>
-                 : (article.data.selftext_html !== null) ? 
-                 stringToJSX(article.data.selftext_html) :console.log('no hint')
-                
-                }
-                
-                <div className='btn-groupe'>
-                  <button><a href={`https://www.reddit.com${article.data.permalink}`} target="_blank" rel="noreferrer">{commentIcon} {numberFormat(article.data.num_comments)} comments</a></button>
-                </div>
-              </div>
-            </article>
-          )
-        })}
+        {articles.map( article => <Article
+        key={article.data.id}
+        article={article} 
+        stringToJSX={stringToJSX}
+        numberFormat={numberFormat}
+        foramtingLink={foramtingLink}
+        formatingTimePost={formatingTimePost}
+        />)}
       </>
     );
   };

@@ -1,8 +1,8 @@
-export const SearchForm = ({searchTerm, handleSearch}) =>{
+export const SearchForm = ({handleSearch, handleSubmit }) =>{
 
   return(
-    <form className='SearchBar' >
-      <input type="search" placeholder="Search Reddit" onChange={handleSearch}/>
+    <form className='SearchBar' onSubmit={handleSubmit}>
+      <input type="search" placeholder="Search Reddit" onInput={handleSearch}/>
     </form>
   );
 };

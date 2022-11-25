@@ -3,99 +3,22 @@ import * as React from 'react';
 import axios from 'axios';
 
 import { redditLogo } from './ressources/icons/svgIcon';
-import { articlesReducer } from './AppReducer';
+import { articlesReducer, baseURL } from './AppReducer';
 import { SearchForm } from './components/SearchForm/SearchForm';
 import { Articles } from './components/Articles/Articles';
-
-const initialPostState = [
-  {title:"Beluga",
-  redditPlace:"Cat",
-  author:"SuperBeluga",
-  date:"07/11/2022",
-  URLimage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbla7jeZvXe52oVMRY4ecyTFrxFYeYUonFs9kfSd0PznOP_S4sHSNLNDXYbYSiT8YCZlM&usqp=CAU",
-  likeCount: 120077,
-  comment:[
-    {author:"ScubaCycle",
-    date:"07/11/2022",
-    contents:"I like it",
-    likeCount: 3500,
-    },
-    {author:"Martoni",
-    date:"07/11/2022",
-    contents:"I dont like it",
-    likeCount: 25,
-    },
-    {author:"antiBeluga",
-    date:"07/11/2022",
-    contents:"You bluff @Martoni!",
-    likeCount: 789,
-    },
-    {author:"Martoni",
-    date:"07/11/2022",
-    contents:"lol",
-    likeCount: 655,
-    },
-  ],
-},
-{title:"Martoni",
-  redditPlace:"Movie",
-  author:"SuperMartoni",
-  date:"07/11/2022",
-  URLimage:"https://pbs.twimg.com/media/CUM1wfaWEAAw3gt?format=png&name=4096x4096",
-  likeCount: 570099900,
-  comment:[
-    {author:"antiBeluga",
-    date:"07/11/2022",
-    contents:"I like it",
-    likeCount: 100,
-    },
-    {author:"Martoni",
-    date:"07/11/2022",
-    contents:"It's not me :p",
-    likeCount: 23,
-    },
-    {author:"antiBeluga",
-    date:"07/11/2022",
-    contents:"You bluff @Martoni!",
-    likeCount: 65,
-    },
-    {author:"Martoni",
-    date:"07/11/2022",
-    contents:"lol",
-    likeCount: 10,
-    },
-  ],
-},
-]
-
-const initialArticles = async() =>{
-  const rawdata = await axios.get("https://www.reddit.com/top.json?t=day");
-  const articles = [];
-  rawdata.data.data.children.forEach(article => articles.push(article))
-  return articles;
-}
-
-const initialArticlesState = initialArticles();
-
-
-const FavCategorie = () =>{
-  return(
-    <aside>
-    </aside>
-  );
-}
+import { Categories } from './components/Categories/Categories';
 
 function App() {
   const [articles, dispatchArticles] = React.useReducer(
     articlesReducer,
     {data:[], isLoading:false, isError:false }
   );
-  const [searchTerm, setSearchTerm] = React.useState('top.json?t=day?raw_json=1');
-  //const [url, setUrl] = React.useState(`https://www.reddit.com/${searchTerm}`)
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [filter, setFilter] = React.useState('/best.json?raw_json=1')
+  const [url, setURL] = React.useState(`${baseURL}${searchTerm}${filter}`)
 
   const handelFetchArticle = React.useCallback(async()=>{
     dispatchArticles({type:'LoadingArticles'});
-    const url= `https://www.reddit.com/${searchTerm}`
     try{
       const result = await axios.get(url);
       dispatchArticles({
@@ -106,27 +29,62 @@ function App() {
       dispatchArticles({type:'ErrorFetching'})
     }
 
-  }, [searchTerm]);
+  }, [url]);
 
   React.useEffect(()=>{
     handelFetchArticle();
   }, [handelFetchArticle]);
 
+  React.useEffect(()=>{
+    setURL(`${baseURL}${searchTerm}${filter}`);
+  },[filter])
+
+  const handleSubmit = (e)=>{
+    setURL(`${baseURL}${searchTerm}${filter}`);
+    e.preventDefault();
+  }
+
   const handleSearch = (event) =>{
-    setSearchTerm('r/'+event.target.value+'.json?raw_json=1');
-    event.preventDefault();
+    setSearchTerm(`r/${event.target.value}`);
   };
+
+  const handleFiltre = (event)=>{
+    const value = event.target.attributes.value.value ;
+    if(value === 'hot' && !filter.includes('hot') ){
+      setFilter(`/${value}.json?raw_json=1`);
+      console.log(value)
+    } else if(value === 'top' && !filter.includes('top')){
+      setFilter(`/${value}.json?raw_json=1`);
+      console.log(value)
+    } else if(value === 'homeReddit'){
+      setSearchTerm(``);
+      setFilter('/best.json?raw_json=1');
+      console.log(value)
+    } else{ 
+      setFilter(`.json?raw_json=1`);
+      console.log(value)
+    };
+  }
   
   return (
     <div className="App">
       <header className="App-header">
         <div className='App-compartiment'><h3>{redditLogo}Mini<span>Reddit</span></h3></div>
-        <div className='App-compartiment'><SearchForm searchTerm={searchTerm} handleSearch={handleSearch} /></div>
+        <div className='App-compartiment'>
+          <SearchForm 
+          handleSearch={handleSearch} 
+          handleSubmit={handleSubmit} 
+          />
+        </div>
         <div className='App-compartiment'></div>
       </header>
       <div className="Body">
-        <Articles articles={articles.data} />
-        <FavCategorie />
+        <div>
+          <Articles articles={articles.data} />
+        </div>
+        <Categories 
+        handleFiltre={handleFiltre}
+        />
       </div>
       <footer className='Footer'>
       </footer>

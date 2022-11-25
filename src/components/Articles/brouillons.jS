@@ -35,7 +35,7 @@ const foramtingLink = link =>{
     };
 };*/
 
-export const formatingTimePost = (created) =>{
+const formatingTimePost = (created) =>{
     const scdOfToday =new Date().getTime()/(1000);
     const timeSincePost = Math.round(scdOfToday - created);
 
@@ -70,3 +70,7 @@ export const formatingTimePost = (created) =>{
 };
 
 console.log(formatingTimePost(1668950032))
+
+const link = 'hot.json?raw_json=1'
+
+console.log(link.includes('hot'))

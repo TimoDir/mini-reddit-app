@@ -60,15 +60,14 @@
 }
 
 .Body{
-  margin-left: 25%;
+  display: flex;
 }
-
 
 .Article {
   background-color: white;
   justify-self: center;
   width: 60%;
-  margin: 20px;
+  margin: 20px 38%;
   padding: -5px;
   display: flex;
   flex-direction: row;
@@ -88,17 +87,46 @@
 
 .SubArticle{
   width: 80%;
+  text-align: start;
+  margin-left: 10px
+}
+
+.SubArticle a{
+  color: black;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.SubArticle span a{
+  text-align: start;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #0079D3
+}
+
+.SubArticle span svg{
+  color: #0079D3
 }
 
 .ArticleInfo{
   text-align: start;
-  font-size: 12px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
   color: rgb(109, 109, 109);
   margin-bottom: 0px;
 }
 
-.Article a{
+.ArticleInfo a{
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   cursor: pointer;
 }
@@ -111,10 +139,15 @@
   color:rgb(109, 109, 109)
 }
 
+.ArticleInfo img{
+  height: 25px;
+  border-radius: 50%;
+}
+
 .btn-groupe{
   display: flex;
   align-items: flex-start;
-  margin-bottom: 5px;
+  margin: 10px 0px;
   font-size: 12px;
   
 }
@@ -131,25 +164,36 @@
   background-color: rgb(184, 184, 184);
 }
 
+.btn-groupe a:hover {
+  text-decoration: none;
+}
+
 .SubArticle svg{
   color: rgb(109, 109, 109);
   height: 17px;
   width: 17px;
 }
 
-.SubArticle img, .SubArticle video{
+.ArticleContent{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.ArticleContent img, .ArticleContent video{
   width:fit-content;
   max-width: 100%;
+  justify-self: center;
+  align-self: center;
 }
 
-.Comment{
-  padding-left: 2%;
-  text-align: start;
-  margin-bottom: 5px;
-}
+.Categories{
+  text-align: center;
+  margin: 20px;
+  min-width: 30%;
+  height: 500px;
+  background-color: white;
 
-.Comment p{
-  margin: 7px;
 }
 
 .Footer{
