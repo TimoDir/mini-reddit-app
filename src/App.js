@@ -40,29 +40,47 @@ function App() {
   },[filter])
 
   const handleSubmit = (e)=>{
+    setFilter('.json?raw_json=1');
     setURL(`${baseURL}${searchTerm}${filter}`);
     e.preventDefault();
   }
 
   const handleSearch = (event) =>{
-    setSearchTerm(`r/${event.target.value}`);
+    setSearchTerm(`/r/${event.target.value}`);
   };
 
-  const handleFiltre = (event)=>{
-    const value = event.target.attributes.value.value ;
-    if(value === 'hot' && !filter.includes('hot') ){
-      setFilter(`/${value}.json?raw_json=1`);
-      console.log(value)
-    } else if(value === 'top' && !filter.includes('top')){
-      setFilter(`/${value}.json?raw_json=1`);
-      console.log(value)
+  const handleFiltre = (string)=>{
+
+    const value = string;
+
+    const basicTopic = '.json?raw_json=1'
+    const hotTopic = '/hot.json?raw_json=1';
+    const topTopic = '/top.json?raw_json=1';
+    const homeTopic = '/best.json?raw_json=1';
+
+    if(searchTerm === ""){
+      if(value === 'hot'){
+        if(!filter.includes(hotTopic)){
+          setFilter(hotTopic);
+        } else setFilter(homeTopic);
+      } else if (value === 'top'){
+        if(!filter.includes(topTopic)){
+          setFilter(topTopic);
+        } else setFilter(homeTopic);
+      } else if (value === 'homeReddit'){
+        setFilter(homeTopic);
+      } else return;
+    } else if(value === 'hot'){
+      if(!filter.includes(hotTopic)){
+        setFilter(hotTopic);
+      } else setFilter(basicTopic);
+    } else if(value === 'top'){
+      if(!filter.includes(topTopic)){
+        setFilter(topTopic);
+      } else setFilter(basicTopic);
     } else if(value === 'homeReddit'){
-      setSearchTerm(``);
-      setFilter('/best.json?raw_json=1');
-      console.log(value)
-    } else{ 
-      setFilter(`.json?raw_json=1`);
-      console.log(value)
+      setSearchTerm("")
+      setFilter(homeTopic)
     };
   }
   

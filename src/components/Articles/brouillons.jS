@@ -69,8 +69,18 @@ const formatingTimePost = (created) =>{
     }
 };
 
-console.log(formatingTimePost(1668950032))
 
-const link = 'hot.json?raw_json=1'
+const hotTopic = '/hot.json?raw_json=1';
+const topTopic = '/top.json?raw_json=1';
+const homeTopic = '/best.json?raw_json=1';
 
-console.log(link.includes('hot'))
+const filterCHoice = [hotTopic, topTopic, homeTopic]
+
+const checkIfAlreadyFilter = (filterWord) =>{
+    if(filterWord){
+    const filterWordChoice = filterCHoice.filter(Topic => Topic.includes(filterWord));
+    console.log(filterWordChoice);
+    } else console.log(homeTopic);
+};
+
+

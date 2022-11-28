@@ -149,7 +149,10 @@
   align-items: flex-start;
   margin: 10px 0px;
   font-size: 12px;
-  
+}
+
+.btn-groupe svg{
+  pointer-events: none;
 }
 
 .btn-groupe button{
