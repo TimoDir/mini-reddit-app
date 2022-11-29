@@ -37,31 +37,36 @@ function App() {
 
   React.useEffect(()=>{
     setURL(`${baseURL}${searchTerm}${filter}`);
-  },[filter])
+  },[filter]);
 
   const handleSubmit = (e)=>{
     setFilter('.json?raw_json=1');
-    setURL(`${baseURL}${searchTerm}${filter}`);
     e.preventDefault();
-  }
+  };
 
   const handleSearch = (event) =>{
     setSearchTerm(`/r/${event.target.value}`);
   };
 
-  const handleFiltre = (string)=>{
+  const handleSubredditTerm = (event) =>{
+    setSearchTerm(`/${event.target.value}`);
+    setFilter('.json?raw_json=1');
+    setURL(`${baseURL}${searchTerm}${filter}`);
+  };
 
-    const value = string;
+  const handleFiltre = (event)=>{
+
+    const value = event.target.value;
 
     const basicTopic = '.json?raw_json=1'
-    const hotTopic = '/hot.json?raw_json=1';
+    const newTopic = '/new.json?raw_json=1';
     const topTopic = '/top.json?raw_json=1';
     const homeTopic = '/best.json?raw_json=1';
 
     if(searchTerm === ""){
-      if(value === 'hot'){
-        if(!filter.includes(hotTopic)){
-          setFilter(hotTopic);
+      if(value === 'new'){
+        if(!filter.includes(newTopic)){
+          setFilter(newTopic);
         } else setFilter(homeTopic);
       } else if (value === 'top'){
         if(!filter.includes(topTopic)){
@@ -70,9 +75,9 @@ function App() {
       } else if (value === 'homeReddit'){
         setFilter(homeTopic);
       } else return;
-    } else if(value === 'hot'){
-      if(!filter.includes(hotTopic)){
-        setFilter(hotTopic);
+    } else if(value === 'new'){
+      if(!filter.includes(newTopic)){
+        setFilter(newTopic);
       } else setFilter(basicTopic);
     } else if(value === 'top'){
       if(!filter.includes(topTopic)){
@@ -82,7 +87,7 @@ function App() {
       setSearchTerm("")
       setFilter(homeTopic)
     };
-  }
+  };
   
   return (
     <div className="App">
@@ -102,6 +107,7 @@ function App() {
         </div>
         <Categories 
         handleFiltre={handleFiltre}
+        handleSubredditTerm={handleSubredditTerm}
         />
       </div>
       <footer className='Footer'>

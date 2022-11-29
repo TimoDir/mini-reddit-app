@@ -48,9 +48,15 @@ export const Article = ({article, numberFormat, formatingTimePost, foramtingLink
           <h1>{article.data.title}</h1>
           <div className="ArticleContent">
           {
-          article.data.post_hint === "hosted:video" ? 
+          (article.data.post_hint === "hosted:video") ? 
           <video controls muted>
             <source src={article.data.secure_media.reddit_video.fallback_url} type="video/mp4"/>
+          </video> :
+          (article.data.post_hint === "rich:video") ? 
+          stringToJSX(article.data.secure_media.oembed.html) :
+          (article.data.crosspost_parent_list !== undefined) ?
+          <video controls muted>
+            <source src={article.data.crosspost_parent_list[0].secure_media.reddit_video.fallback_url} type="video/mp4"/>
           </video> :
           (article.data.post_hint === "image") ? 
           <img src={article.data.url} alt={article.data.title} loading="lazy" /> : 

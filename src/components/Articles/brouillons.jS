@@ -84,3 +84,7 @@ const checkIfAlreadyFilter = (filterWord) =>{
 };
 
 
+const Subreddit = ['r/mildlyinteresting', "r/funny", "r/space", "r/worldnews", "r/Damnthatsinteresting", "r/technology", "r/tifu",
+    "r/nottheonion", "r/Music", "r/AbsoluteUnits", "r/books", "r/wallstreetbets", "r/dataisbeautiful", "r/Cooking", "r/blursedimages",
+    "r/woahdude", "r/marvelmemes", "r/cringepics", "r/Economics", "r/shittymoviedetails", "r/MovieDetails", "r/Whatcouldgowrong",
+    "r/megalophobia", "r/Steam", "r/wholesomememes", "r/UkrainianConflict", "r/ThatsInsane", "r/assholedesign", "r/RoastMe", "r/sports"];
